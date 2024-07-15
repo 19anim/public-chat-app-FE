@@ -1,17 +1,31 @@
-import React from "react";
+import useConversation from "../../zustand/useConversation.zustand";
+import { useAuthContext } from "../../context/auth.context";
+import useGetAvatarAndName from "../../hooks/useGetAvatarAndName.hook";
 
-const Conversation = ({ avatar, recipientName, finalMessage }) => {
+const Conversation = ({ finalMessage, conversation }) => {
+  const { setSelectedConversation } = useConversation();
+  const { authUser } = useAuthContext();
+  const { avatar, conversationName } = useGetAvatarAndName(
+    conversation,
+    authUser
+  );
+
   return (
-    <div className="flex items-center hover:bg-[#ffffff40] rounded-lg px-2">
-      <img className="h-[60px]" src={avatar} alt="avatar" />
-      <div className="w-full text-[15px]">
-        <h2>{recipientName}</h2>
-        <div className="w-full flex justify-between">
-          <p>{finalMessage.message} </p>
-          <p>{finalMessage.time}</p>
+    conversation && (
+      <div
+        onClick={() => setSelectedConversation(conversation)}
+        className="flex items-center hover:bg-[#ffffff40] rounded-lg px-2"
+      >
+        <img className="h-[60px]" src={avatar} alt="avatar" />
+        <div className="w-full text-[15px]">
+          <h2>{conversationName}</h2>
+          <div className="w-full flex justify-between">
+            <p>{finalMessage.message} </p>
+            <p>{finalMessage.time}</p>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 

@@ -8,6 +8,8 @@ const API = {
   LOGIN: "auth/signin",
   SIGNUP: "auth/signup",
   LOGOUT: "auth/signout",
+  GET_CONVERSATIONS: "conversation/getConversations",
+  GET_MESSAGES: "message/getAllMessages",
 };
 
 Object.keys(API).forEach((key) => {

@@ -2,7 +2,7 @@ import Input from "../components/input/input.component";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import API from "../utils/apiEnum";
-import UseLogin from "../hooks/useLogin.hook";
+import useLogin from "../hooks/useLogin.hook";
 
 const LoginPage = () => {
   const [loginInfo, setLoginInfo] = useState({
@@ -10,7 +10,7 @@ const LoginPage = () => {
     password: "",
   });
 
-  const { login, isLoading } = UseLogin();
+  const { login, isLoading, errorMessage } = useLogin();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -56,11 +56,15 @@ const LoginPage = () => {
           </div>
           <div>
             <button
+              disabled={isLoading}
               type="submit"
               className="bg-white text-black px-4 py-1 rounded-lg w-full"
             >
               {isLoading ? "Trying to login ..." : "Login"}
             </button>
+          </div>
+          <div className="text-center text-red-500">
+            <p>{errorMessage}</p>
           </div>
         </form>
       </div>

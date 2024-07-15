@@ -1,6 +1,6 @@
 const SearchMessageBox = () => {
   return (
-    <div className="flex gap-2 pb-3 pl-3 border border-l-0 border-b-0 border-t-0 border-[#414141]">
+    <div className="flex gap-2 pb-3 px-3 border border-l-0 border-b-0 border-t-0 border-[#414141]">
       <div className="flex items-center text-[20px]">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>

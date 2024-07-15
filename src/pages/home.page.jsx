@@ -1,6 +1,6 @@
 import SearchMessageBox from "../components/searchMessageBox/searchMessageBox.component";
 import ConversationsList from "../components/conversationsList/coversationsList.component";
-import RecipientHeader from "../components/recipientHeader/recipientHeader.component";
+import MessagePanel from "../components/messagePanel/messagePanel.component";
 
 const HomePage = () => {
   return (
@@ -15,14 +15,7 @@ const HomePage = () => {
           Developed by JAGERTHEJAGER
         </div>
       </div>
-      <div className="flex flex-col">
-        <RecipientHeader
-          avatar={"https://api.dicebear.com/8.x/big-smile/svg?seed=91nim"}
-          recipientName={"91nimnim"}
-        />
-        <div className="flex-[1_1_0]"></div>
-        <div className="h-[60px] bg-white"></div>
-      </div>
+      <MessagePanel />
     </div>
   );
 };

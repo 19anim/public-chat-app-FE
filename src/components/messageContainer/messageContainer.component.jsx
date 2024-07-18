@@ -11,28 +11,31 @@ const MessageContainer = () => {
   const { selectedConversation } = useConversation();
   const { avatar } = useGetAvatarAndName(selectedConversation, authUser);
   return (
-    <div className="flex-[1_1_0] flex flex-col pt-3">
+    <div className="flex-[1_1_0] flex flex-col pt-3 gap-1">
       {isLoading
         ? "LOADING MESSAGES"
         : messages.map((message, index) => {
-            let fromMe = authUser._id === message.senderId;
-            if (index > 0) {
-              console.log("Last message", messages[index - 1]);
-              console.log("Latest message", message);
-              let lastMessageFromMe =
-                authUser._id === messages[index - 1].senderId;
+            let fromMe = authUser._id === message.senderId._id;
+            let isContinuousMessage = false;
+            if (
+              index > 0 &&
+              message.senderId._id === messages[index - 1].senderId._id
+            ) {
+              isContinuousMessage = true;
             }
             return fromMe ? (
               <SenderMessage
                 key={message._id}
                 message={message}
-                avatar={avatar}
+                avatar={message.senderId.profilePic}
+                isContinuousMessage={isContinuousMessage}
               />
             ) : (
               <ReceiverMessage
                 key={message._id}
                 message={message}
-                avatar={avatar}
+                avatar={message.senderId.profilePic}
+                isContinuousMessage={isContinuousMessage}
               />
             );
           })}

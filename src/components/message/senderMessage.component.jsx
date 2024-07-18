@@ -1,10 +1,16 @@
-const SenderMessage = ({ message, avatar }) => {
+const SenderMessage = ({ message, avatar, isContinuousMessage }) => {
   return (
-    <div className="self-end flex items-center max-w-[30%]">
-      <p className="bg-blue-500 rounded-[50px] px-3 py-1">
+    <div className="self-end flex items-center max-w-[70%] mr-3">
+      <p
+        className={`bg-blue-500 rounded-[18px] px-3 py-1 ${
+          isContinuousMessage && "mr-[32px]"
+        }`}
+      >
         {message.messageContent}
       </p>
-      <img src={avatar} alt="avatar" className="h-[40px]" />
+      {!isContinuousMessage && (
+        <img src={avatar} alt="avatar" className="h-[32px]" />
+      )}
     </div>
   );
 };

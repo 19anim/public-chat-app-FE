@@ -10,6 +10,7 @@ const API = {
   LOGOUT: "auth/signout",
   GET_CONVERSATIONS: "conversation/getConversations",
   GET_MESSAGES: "message/getAllMessages",
+  SEND_MESSAGE: "message/send",
 };
 
 Object.keys(API).forEach((key) => {

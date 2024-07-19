@@ -1,6 +1,7 @@
 import SearchMessageBox from "../components/searchMessageBox/searchMessageBox.component";
 import ConversationsList from "../components/conversationsList/coversationsList.component";
 import MessagePanel from "../components/messagePanel/messagePanel.component";
+import { useSocketContext } from "../context/socket.context";
 
 const HomePage = () => {
   return (

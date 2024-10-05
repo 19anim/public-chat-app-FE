@@ -11,6 +11,7 @@ const API = {
   GET_CONVERSATIONS: "conversation/getConversations",
   GET_MESSAGES: "message/getAllMessages",
   SEND_MESSAGE: "message/send",
+  SEARCH_CONVERSATIONS: "conversation/searchConversations",
 };
 
 Object.keys(API).forEach((key) => {

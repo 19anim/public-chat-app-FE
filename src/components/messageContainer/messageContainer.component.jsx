@@ -4,11 +4,24 @@ import SenderMessage from "../message/senderMessage.component";
 import ReceiverMessage from "../message/receiverMessage.component";
 import MessageSkeleton from "../skeletons/messageSkeleton.component";
 import useListenMessage from "../../hooks/useListenMessage.hook";
+import { useRef, useEffect } from "react";
 
 const MessageContainer = () => {
   const { isLoading, messages } = useGetMessages();
   const { authUser } = useAuthContext();
+  const lastMessageRef = useRef();
   useListenMessage();
+
+  useEffect(() => {
+    const scrollToBottomTimeout = setTimeout(() => {
+      lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+
+    return () => {
+      clearTimeout(scrollToBottomTimeout);
+    };
+  }, [messages]);
+
   return (
     <div className="flex-[1_1_0] flex flex-col pt-3 gap-1 overflow-auto">
       {isLoading ? (
@@ -24,19 +37,29 @@ const MessageContainer = () => {
             isContinuousMessage = true;
           }
           return fromMe ? (
-            <SenderMessage
+            <div
+              className="self-end flex items-center max-w-[70%] mr-3"
               key={message._id}
-              message={message}
-              avatar={message.senderId.profilePic}
-              isContinuousMessage={isContinuousMessage}
-            />
+              ref={lastMessageRef}
+            >
+              <SenderMessage
+                message={message}
+                avatar={message.senderId.profilePic}
+                isContinuousMessage={isContinuousMessage}
+              />
+            </div>
           ) : (
-            <ReceiverMessage
+            <div
+              className="self-start flex items-center w-[70%] ml-3"
               key={message._id}
-              message={message}
-              avatar={message.senderId.profilePic}
-              isContinuousMessage={isContinuousMessage}
-            />
+              ref={lastMessageRef}
+            >
+              <ReceiverMessage
+                message={message}
+                avatar={message.senderId.profilePic}
+                isContinuousMessage={isContinuousMessage}
+              />
+            </div>
           );
         })
       )}

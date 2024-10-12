@@ -9,9 +9,17 @@ const LOADING_SPINNER_SIZE = {
 const LoadingSpinner = ({ size = "s" }) => {
   switch (size) {
     case LOADING_SPINNER_SIZE.SMALL:
-      return <img src={small_spinner} />;
+      return (
+        <div>
+          <img src={small_spinner} />
+        </div>
+      );
     case LOADING_SPINNER_SIZE.MEDIUM:
-      return <img src={medium_spinner} />;
+      return (
+        <div>
+          <img src={medium_spinner} />
+        </div>
+      );
   }
 };
 

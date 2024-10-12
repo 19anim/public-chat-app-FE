@@ -14,6 +14,7 @@ export const SocketProvider = ({ children }) => {
       ? undefined
       : "http://localhost:5000";
   const [socket, setSocket] = useState(null);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const { authUser } = useAuthContext();
 
   useEffect(() => {
@@ -26,7 +27,9 @@ export const SocketProvider = ({ children }) => {
 
       setSocket(socket);
 
-      socket.on("getOnlineUsers", (users) => {});
+      socket.on("getOnlineUsers", (users) => {
+        setOnlineUsers(users);
+      });
 
       return () => {
         socket?.close();
@@ -40,7 +43,7 @@ export const SocketProvider = ({ children }) => {
   }, [authUser]);
 
   return (
-    <SocketContext.Provider value={{ socket }}>
+    <SocketContext.Provider value={{ socket, onlineUsers }}>
       {children}
     </SocketContext.Provider>
   );

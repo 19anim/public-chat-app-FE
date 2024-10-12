@@ -1,17 +1,36 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef, useState, useEffect } from "react";
 import API from "../../utils/apiEnum";
 import SearchResultComponent from "./searchResult.component";
+import LoadingSpinner from "../loading_spinner/loadingSpinner.component";
 
 const SearchMessageBox = () => {
   const searchInputRef = useRef();
   const returnArrowRef = useRef();
   const searchBoxResultRef = useRef();
-  const [searchTerm, setSearchTerm] = useState();
+  const [searchTerm, setSearchTerm] = useState("");
   const [searchResult, setSearchResult] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const { SEARCH_CONVERSATIONS } = API;
 
   const { conversations, users } = searchResult ? searchResult : [];
+  const filteredConversations = conversations?.filter((conversation) => {
+    return conversation.participantId.length > 2;
+  });
+
+  const documentOnClickHandler = (e) => {
+    if (e.target.id !== searchInputRef.current.id) {
+      returnArrowRef.current.className = "hidden";
+      searchBoxResultRef.current.className = "hidden";
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", documentOnClickHandler);
+
+    return () => {
+      document.removeEventListener("click", documentOnClickHandler);
+    };
+  });
 
   const debounce = (callback, delay) => {
     let timeout = null;
@@ -27,12 +46,8 @@ const SearchMessageBox = () => {
   const inputEventHandler = (e) => {
     returnArrowRef.current.className = "flex items-center text-[20px]";
     searchBoxResultRef.current.className =
-      "w-[85%] h-[500px] top-10 left-4 right-0 mx-auto rounded-[15px] absolute bg-white";
-  };
-
-  const onBlurEventHandler = (e) => {
-    returnArrowRef.current.className = "hidden";
-    searchBoxResultRef.current.className = "hidden";
+      "w-[85%] h-[500px] top-10 left-4 right-0 mx-auto rounded-[15px] absolute bg-[#414141]";
+    debounceSearch(searchTerm);
   };
 
   const onChangeHandler = async (e) => {
@@ -74,7 +89,7 @@ const SearchMessageBox = () => {
 
   return (
     <div className="flex relative gap-2 pb-3 px-3 border border-l-0 border-b-0 border-t-0 border-[#414141]">
-      <div ref={returnArrowRef} className="flex items-center text-[20px]">
+      <div ref={returnArrowRef} className="hidden">
         <ion-icon name="arrow-back-outline"></ion-icon>
       </div>
       <div className="flex items-center w-full">
@@ -82,20 +97,28 @@ const SearchMessageBox = () => {
           <ion-icon name="search-outline"></ion-icon>
         </div>
         <input
+          id="searchInputRef"
           ref={searchInputRef}
           onChange={onChangeHandler}
           onFocus={inputEventHandler}
-          onBlur={onBlurEventHandler}
-          className="bg-[#ffffff40] py-1 outline-none rounded-[0_20px_20px_0] w-full"
+          className="bg-[#ffffff40] py-1 outline-none rounded-[0_20px_20px_0] w-full "
           placeholder="Search messages"
           type="text"
         />
       </div>
       <div ref={searchBoxResultRef} className="hidden transition-all">
         {isLoading ? (
-          <p className="text-black">Loading</p>
+          <div className="text-black flex gap-2 justify-center items-center">
+            <LoadingSpinner size="s" />
+            <div>Loading</div>
+          </div>
         ) : (
-          <SearchResultComponent conversations={conversations} users={users} />
+          <SearchResultComponent
+            searchBoxResultRef={searchBoxResultRef}
+            returnArrowRef={returnArrowRef}
+            conversations={filteredConversations}
+            users={users}
+          />
         )}
       </div>
     </div>

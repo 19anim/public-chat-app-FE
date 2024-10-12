@@ -1,21 +1,35 @@
-const SearchResultComponent = ({ conversations, users }) => {
+import UserSearchResult from "./userSearchResult.component";
+import ConversationSearchResult from "./conversationSearchResult.component";
+
+const SearchResultComponent = ({
+  conversations,
+  users,
+  searchBoxResultRef,
+  returnArrowRef,
+}) => {
   return (
     <div className="flex flex-col w-full gap-2">
       {conversations.length > 0
         ? conversations.map((conversation) => {
             return (
-              <div key={conversation._id} className="text-black  w-full h-fit">
-                {conversation.conversationName}
-              </div>
+              <ConversationSearchResult
+                key={conversation._id}
+                conversation={conversation}
+                searchBoxResultRef={searchBoxResultRef}
+                returnArrowRef={returnArrowRef}
+              />
             );
           })
         : null}
       {users.length > 0
         ? users.map((user) => {
             return (
-              <div key={user._id} className="text-black  w-full h-fit">
-                {user.fullName}
-              </div>
+              <UserSearchResult
+                key={user._id}
+                conversation={user}
+                searchBoxResultRef={searchBoxResultRef}
+                returnArrowRef={returnArrowRef}
+              />
             );
           })
         : null}

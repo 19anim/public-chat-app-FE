@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import API from "../utils/apiEnum";
+import useSearchConversation from "../zustand/useSearchConversation.zustand";
 
 const useGetConversations = () => {
   const [conversations, setConversations] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const { searchResult } = useSearchConversation();
   useEffect(() => {
     const fetchConversations = async () => {
       setIsLoading(true);
@@ -22,7 +24,7 @@ const useGetConversations = () => {
     };
 
     fetchConversations();
-  }, []);
+  }, [searchResult]);
   return { isLoading, conversations };
 };
 

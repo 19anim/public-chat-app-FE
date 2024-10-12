@@ -1,6 +1,7 @@
 const useGetAvatarAndName = (conversation, authUser) => {
   let avatar = "";
   let conversationName = "";
+  console.log(conversation);
 
   let filteredParticipant = conversation?.participantId?.filter(
     (participant) => participant._id !== authUser._id
@@ -9,11 +10,8 @@ const useGetAvatarAndName = (conversation, authUser) => {
     avatar = filteredParticipant[0].profilePic;
     conversationName = filteredParticipant[0].fullName;
   }
-  if (conversation?.fullName) {
-    avatar = conversation.profilePic;
-    conversationName = conversation.fullName;
-  }
   if (conversation?.participantId?.length > 2) {
+    console.log(conversation);
     avatar = filteredParticipant[0].profilePic;
     conversationName = conversation.conversationName;
   }

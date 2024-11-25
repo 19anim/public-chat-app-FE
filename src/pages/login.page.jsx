@@ -51,7 +51,7 @@ const LoginPage = () => {
             labelName="Password"
           />
           <div className="flex justify-between">
-            <Link to="signup">Don't have an account?</Link>
+            <Link to="/signup">Don't have an account?</Link>
             <Link to="/">Forgot password?</Link>
           </div>
           <div>

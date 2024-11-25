@@ -46,7 +46,7 @@ const SearchMessageBox = () => {
   const inputEventHandler = (e) => {
     returnArrowRef.current.className = "flex items-center text-[20px]";
     searchBoxResultRef.current.className =
-      "w-[85%] h-[500px] top-10 left-4 right-0 mx-auto rounded-[15px] absolute bg-[#414141]";
+      "w-[85%] h-[500px] top-10 left-4 right-0 mx-auto rounded-[15px] absolute bg-[#414141] overflow-auto";
     debounceSearch(searchTerm);
   };
 

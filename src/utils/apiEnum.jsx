@@ -1,8 +1,7 @@
 import ENV from "./envEnum";
 
 const environment = import.meta.env.VITE_ENVIRONMENT || VITE_ENVIRONMENT;
-const baseAPI =
-  environment === ENV.DEV ? "/api/" : "http://localhost:5000/api/";
+const baseAPI = environment === ENV.DEV ? "/api/" : "/api/";
 
 const API = {
   LOGIN: "auth/signin",

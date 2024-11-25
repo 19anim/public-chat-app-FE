@@ -4,7 +4,7 @@ const environment = import.meta.env.VITE_ENVIRONMENT || VITE_ENVIRONMENT;
 const baseAPI =
   environment === ENV.DEV
     ? "/api/"
-    : "https://public-chat-app-be.onrender.com/";
+    : "https://public-chat-app-be.onrender.com/api/";
 
 const API = {
   LOGIN: "auth/signin",

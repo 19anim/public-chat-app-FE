@@ -2,7 +2,9 @@ import ENV from "./envEnum";
 
 const environment = import.meta.env.VITE_ENVIRONMENT || VITE_ENVIRONMENT;
 const baseAPI =
-  environment === ENV.DEV ? "/api/" : "https://public-chat-app-be.onrender.com";
+  environment === ENV.DEV
+    ? "/api/"
+    : "https://public-chat-app-be.onrender.com/";
 
 const API = {
   LOGIN: "auth/signin",

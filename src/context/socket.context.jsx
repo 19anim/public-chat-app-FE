@@ -10,9 +10,9 @@ export const useSocketContext = () => {
 
 export const SocketProvider = ({ children }) => {
   const URL =
-    import.meta.env.VITE_ENVIRONMENT === "production"
-      ? "https://public-chat-app-be.onrender.com"
-      : "http://localhost:5000";
+    import.meta.env.VITE_ENVIRONMENT === "DEV"
+      ? "http://localhost:5000"
+      : "https://public-chat-app-be.onrender.com";
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
   const { authUser } = useAuthContext();

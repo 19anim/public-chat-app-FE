@@ -9,6 +9,7 @@ const useLogin = () => {
 
   const login = async (loginInfo) => {
     setIsLoading(true);
+    console.log(API.LOGIN);
     setErrorMessage("");
     try {
       const res = await fetch(API.LOGIN, {

@@ -5,10 +5,10 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5000,
+    port: 3000,
     proxy: {
       "/api": {
-        target: "https://public-chat-app-be.onrender.com",
+        target: "http://localhost:5000",
       },
     },
   },

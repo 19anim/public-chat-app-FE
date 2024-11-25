@@ -11,7 +11,7 @@ export const useSocketContext = () => {
 export const SocketProvider = ({ children }) => {
   const URL =
     import.meta.env.VITE_ENVIRONMENT === "production"
-      ? undefined
+      ? "https://public-chat-app-be.onrender.com"
       : "http://localhost:5000";
   const [socket, setSocket] = useState(null);
   const [onlineUsers, setOnlineUsers] = useState([]);
